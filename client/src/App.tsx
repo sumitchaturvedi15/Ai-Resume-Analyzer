@@ -1,122 +1,73 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
+import FileUpload from "./components/FileUpload";
+import Result from "./components/Result";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [result, setResult] = useState<any>(null);
+  const [role, setRole] = useState("");
+  const [experience, setExperience] = useState("");
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-blue-100 flex items-center justify-center p-4">
+      
+      <div className="w-full max-w-5xl bg-white/80 backdrop-blur-lg border border-gray-200 rounded-3xl shadow-xl p-8">
+
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-bold text-gray-800 tracking-tight">
+            AI Resume Analyzer
+          </h1>
+          <p className="text-gray-500 mt-2 text-sm">
+            Get ATS score, skill gaps & personalized improvements
           </p>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
 
-      <div className="ticks"></div>
+        <div className="bg-white/70 border border-gray-200 rounded-2xl p-5 shadow-sm mb-6">
+          <h2 className="text-lg font-semibold text-gray-700 mb-4">
+            Target Job Details
+          </h2>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+          <div className="grid md:grid-cols-2 gap-4">
+            
+            <div className="flex flex-col gap-1">
+              <label className="text-sm text-gray-600 font-medium">
+                Desired Role
+              </label>
+              <input
+                type="text"
+                placeholder="Frontend Developer"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className="border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+              />
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label className="text-sm text-gray-600 font-medium">
+                Experience
+              </label>
+              <input
+                type="text"
+                placeholder="Fresher / 2 years"
+                value={experience}
+                onChange={(e) => setExperience(e.target.value)}
+                className="border border-gray-300 p-3 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition"
+              />
+            </div>
+
+          </div>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        <FileUpload
+          setResult={setResult}
+          role={role}
+          experience={experience}
+        />
+
+        <Result result={result} />
+
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
